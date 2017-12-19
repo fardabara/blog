@@ -1,0 +1,24 @@
+{
+  "development": {
+    "host": {
+      "domain": "localhost",
+      "port": "3000"
+    },
+    "database": {
+      "user": "root",
+      "pass": "",
+      "name": ""
+    }
+  },
+  "production": {
+    "host": {
+      "domain": "localhost",
+      "port": "3000"
+    },
+    "database": {
+      "user": "root",
+      "pass": "",
+      "name": ""
+    }
+  }
+}
