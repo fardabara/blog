@@ -6,6 +6,7 @@ let port = process.env.PORT || config.host.port;
 let fs = require('fs');
 let path = require('path');
 let bodyParser = require('body-parser');
+let morgan = require('morgan');
 
 module.exports = {
 	express,
@@ -13,5 +14,6 @@ module.exports = {
 	port,
 	bodyParser,
 	fs,
-	path
+	path,
+	morgan
 };

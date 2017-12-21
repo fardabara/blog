@@ -1,8 +1,10 @@
 let lib = require('./helpers/lib');
 
 
-
 /*** Request Body Config ****/
+// lib.app.use(lib.morgan(':method :url :status :res[content-length] - :response-time ms'));
+let accessLogStream = lib.fs.createWriteStream(lib.path.join(__dirname, 'access.log'), {flags: 'a'});
+lib.app.use(lib.morgan('combined', {stream: accessLogStream}));
 lib.app.set('port', lib.port);
 lib.app.use(lib.bodyParser.json());
 lib.app.use(lib.bodyParser.urlencoded({extended: false}));
@@ -16,8 +18,5 @@ routes.forEach((route) => {
 
 /***** App Serve ******/
 lib.app.listen(lib.port, (err) => {
-	if (err) {
-		throw  err;
-	}
 	console.log(`listen to port ${lib.port}`);
 });
