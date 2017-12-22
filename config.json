@@ -5,11 +5,12 @@
       "port": "3000"
     },
     "database": {
+      "name": "vesta",
       "user": "root",
-      "pass": "",
-      "name": ""
+      "pass": ""
     }
   },
+
   "production": {
     "host": {
       "domain": "localhost",

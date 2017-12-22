@@ -2,6 +2,7 @@ let express = require('express');
 let app = express();
 let config = require('../config.json').development;
 let port = process.env.PORT || config.host.port;
+let dbConnection = require('../models/');
 
 let fs = require('fs');
 let path = require('path');
@@ -15,5 +16,7 @@ module.exports = {
 	bodyParser,
 	fs,
 	path,
-	morgan
+	morgan,
+	config,
+	dbConnection
 };
