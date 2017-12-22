@@ -1,0 +1,9 @@
+extends ./layouts
+block title
+	| Page Not Found
+
+block content
+	h1 Status: #{error.status}
+	h1 #{error}
+	img(src="/images/panel/error/404.svg")
+	pre #{error.stack}
