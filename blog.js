@@ -10,9 +10,13 @@ lib.app.use(lib.morgan('combined', {
 }));
 lib.app.set('port', lib.port);
 lib.app.set('view engine', 'jade');
+lib.app.use(lib.express.static(lib.path.join(__dirname, 'public')));
+lib.app.use(lib.session({ secret: "cats" }));
 lib.app.use(lib.bodyParser.json());
 lib.app.use(lib.bodyParser.urlencoded({extended: false}));
-lib.app.use(lib.express.static(lib.path.join(__dirname, 'public')));
+lib.app.use(lib.passport.initialize());
+lib.app.use(lib.passport.session());
+lib.app.use(lib.flash());
 
 
 /***** Config Routes *****/
@@ -26,7 +30,7 @@ lib.app.use(function (req, res, next) {
 	let error = new Error('Page Not Found');
 	error.status = '404';
 	res.status('404').render('error', {error});
-	next(error);
+	next();
 });
 
 

@@ -5,7 +5,7 @@
       "port": "3000"
     },
     "database": {
-      "name": "vesta",
+      "name": "blog",
       "user": "root",
       "pass": ""
     }

@@ -1,0 +1,56 @@
+extends ../panel/layouts
+block content
+
+	.row
+		.col-md-4.col-md-offset-4
+			.login-center-form
+				form(id="userLogin" name="userLogin" action="" method="POST")
+					.form-group
+						label(for="mobile") شماره موبایل:
+						input.form-control(type="text" name="mobile" placeholder="شماره خود را وارد کنید" required)
+					.form-group
+						label(for="password") رمزعبور:
+						input.form-control(type="password" name="password" placeholder= "رمز عبور خود را وارد کنید" required)
+					.form-group
+						input.btn.btn-success.btn-block(type="submit" value="ورود")
+
+block jsLayouts
+	script.
+		var bgIndex = 1;
+		$(function () {
+			docHeight = $(document).height();
+			$(".login-center-form").css({"marginTop": ((docHeight - 250) / 2) + "px"});
+			$(window).resize(function () {
+				docHeight = $(document).height();
+				$(".login-center-form").css({"marginTop": ((docHeight - 250) / 2) + "px"});
+			});
+			bgLoad();
+			$('#userLogin').validate({
+				roles: {
+					mobile: {
+						required: true
+					},
+					password: {
+						required: true
+					}
+				},
+				messages: {
+					mobile: {
+						required: 'شماره موبایل الزامیست'
+					},
+					password: {
+						required: 'رمز عبور الزامیست'
+					}
+				}
+			});
+		});
+		function bgLoad() {
+			if (bgIndex == 4) {
+				bgIndex = 1;
+			}
+			$("body").css({"background": "rgba(0, 0, 0, 0) url('../images/login/background-00" + bgIndex + ".jpg') no-repeat fixed center top / cover "});
+			setTimeout(function () {
+				bgIndex++;
+				bgLoad();
+			}, 10000)
+		}

@@ -2,7 +2,7 @@ let config = require('../config.json').development;
 let fs = require('fs');
 let path = require('path');
 let Sequelize = require('sequelize');
-let lodash = require('lodash');
+let _ = require('lodash');
 let sequelize = new Sequelize(config.database.name, config.database.user, config.database.pass, {
 	host: config.host.domain,
 	dialect: 'mysql',
@@ -23,7 +23,7 @@ fs.readdirSync(__dirname)
 		return (file.indexOf('.') !== 0) && (file !== 'index.js');
 	})
 	.forEach(function (file) {
-		let model = sequelize.import(path.join(__dirname, file));
+		const model = sequelize.import(path.join(__dirname, file));
 		db[model.name] = model;
 	});
 
@@ -33,7 +33,7 @@ Object.keys(db).forEach(function (modelName) {
 	}
 });
 
-module.exports = lodash.extend({
+module.exports = _.extend({
 	sequelize: sequelize,
 	Sequelize: Sequelize
 }, db);

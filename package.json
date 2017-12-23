@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon app.js"
+    "start": "nodemon blog.js"
   },
   "repository": {
     "type": "git",
@@ -21,12 +21,19 @@
   "dependencies": {
     "body-parser": "^1.18.2",
     "express": "^4.16.2",
+    "express-session": "^1.15.6",
+    "faker": "^4.1.0",
+    "flash": "^1.1.0",
     "jade": "^1.11.0",
     "lodash": "^4.17.4",
+    "mongoose": "^4.13.7",
     "morgan": "^1.9.0",
     "mysql": "^2.15.0",
     "mysql2": "^1.5.1",
+    "passport": "^0.4.0",
+    "passport-local": "^1.0.0",
     "path": "^0.12.7",
-    "sequelize": "^3.31.1"
+    "randomstring": "^1.1.5",
+    "sequelize": "^4.28.6"
   }
 }
