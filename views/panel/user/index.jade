@@ -23,6 +23,11 @@ block content
 	//			a.alert-link(href='http://startbootstrap.com/template-overviews/sb-admin-2') SB Admin 2
 	//			|  for additional features!
 	.row
+		.col-md-4.col-xs-12.pull.col-sm-6.pull-left
+			.form-group
+				a.btn.btn-block.btn-primary(onclick="createUser()") کاربر جدید
+					i.fa.fa-plus
+	.row
 		.col-lg-12
 			.table-responsive
 				table.table.table-bordered
@@ -43,12 +48,33 @@ block content
 									td.text-center #{row.email}
 									td.text-center #{row.userRole.name}
 									td.text-center #{row.userSituation.name}
-									td.text-center #{row.createdAt}
+									td.text-center(style="direction:ltr;") #{row.createdAt}
 						else
 							tr
 								td.text-center(colspan="5") هیچ رکوردی یافت نشد
 
 
+block jsLayouts
+	script.
+		$(function () {
+
+		});
+		function createUser() {
+			$('#myModal').modal();
+			$('.modal-title').html('کاربر جدید')
+			$.ajax({
+				type: "GET",
+				url: "/panel/users/create"
+			}).done(function (data) {
+				$('.modal-body').html('<div><img src="/images/ajax-loader.gif" alt=""></div>');
+				setTimeout(function () {
+
+				},2000)
+				$('.modal-body').html(data);
+			}).fail(function () {
+				$.alert('خطا در سرور ...');
+			})
+		}
 
 
 

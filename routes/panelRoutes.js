@@ -17,6 +17,7 @@ module.exports = function (app) {
 
 	const userModule = require('../controllers/panel/user');
 	app.use(namespace + 'users/index', userModule.index);
+	app.use(namespace + 'users/create', userModule.create);
 
 
 
