@@ -10,16 +10,10 @@ html(lang='en')
 		link(rel='stylesheet', href='/assets/css/bootstrap-rtl.min.css')
 		link(rel='stylesheet', href='/assets/css/font-awesome.min.css')
 		link(rel='stylesheet', href='/assets/css/jquery-confirm.min.css')
-		link(rel='stylesheet', href='/assets/css/sb-admin.css')
-		link(rel='stylesheet', href='/assets/css/sb-admin-rtl.css')
 		link(rel='stylesheet', href='/assets/css/custom.css')
 		block cssLayouts
 	body
-		#wrapper
-			include ./master/sidebar
-			#page-wrapper
-				.container-fluid
-					block content
+		block content
 	script(type='text/javascript' src="/assets/js/jquery.min.js")
 	script(type='text/javascript' src="/assets/js/bootstrap.min.js")
 	script(type='text/javascript' src="/assets/js/jquery.validate.min.js")

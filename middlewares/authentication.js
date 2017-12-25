@@ -5,6 +5,6 @@ exports.login = (req, res) => {
 	if (req.method === 'GET') {
 		res.render(namespace + 'login');
 	} else if (req.method === 'POST') {
-		console.log(req.body);
+		res.redirect('/panel/dashboard')
 	}
 };

@@ -16,6 +16,7 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local');
 const session = require('express-session');
 const flash = require('flash');
+const moment = require('moment-jalaali');
 
 
 
@@ -34,6 +35,6 @@ module.exports = {
 	_,
 	passport,
 	session,
-	flash
-
+	flash,
+	moment
 };

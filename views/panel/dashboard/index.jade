@@ -1,6 +1,86 @@
 extends ../layouts
 block content
+	// Page Heading
 	.row
-		.col-md-12
-			h1 Hello world
-			h1 سلام دوستان11111112 3456
+		.col-lg-12
+			h1.page-header
+				| داشبورد
+				small پنل مدیریتی
+			ol.breadcrumb
+				li.active
+					i.fa.fa-dashboard
+					|  داشبورد
+	// Notification
+	//.row
+	//	.col-lg-12
+	//		.alert.alert-info.alert-dismissable
+	//			button.close(type='button', data-dismiss='alert', aria-hidden='true') ×
+	//			i.fa.fa-info-circle
+	//			strong Like SB Admin?
+	//			|  Try out
+	//			a.alert-link(href='http://startbootstrap.com/template-overviews/sb-admin-2') SB Admin 2
+	//			|  for additional features!
+	.row
+		.col-lg-3.col-md-6
+			.panel.panel-primary
+				.panel-heading
+					.row
+						.col-xs-3
+							i.fa.fa-comments.fa-5x
+						.col-xs-9.text-right
+							.huge 26
+							div New Comments!
+				a(href='#')
+					.panel-footer
+						span.pull-left View Details
+						span.pull-right
+							i.fa.fa-arrow-circle-right
+						.clearfix
+		.col-lg-3.col-md-6
+			.panel.panel-green
+				.panel-heading
+					.row
+						.col-xs-3
+							i.fa.fa-tasks.fa-5x
+						.col-xs-9.text-right
+							.huge 12
+							div New Tasks!
+				a(href='#')
+					.panel-footer
+						span.pull-left View Details
+						span.pull-right
+							i.fa.fa-arrow-circle-right
+						.clearfix
+		.col-lg-3.col-md-6
+			.panel.panel-yellow
+				.panel-heading
+					.row
+						.col-xs-3
+							i.fa.fa-shopping-cart.fa-5x
+						.col-xs-9.text-right
+							.huge 124
+							div New Orders!
+				a(href='#')
+					.panel-footer
+						span.pull-left View Details
+						span.pull-right
+							i.fa.fa-arrow-circle-right
+						.clearfix
+		.col-lg-3.col-md-6
+			.panel.panel-red
+				.panel-heading
+					.row
+						.col-xs-3
+							i.fa.fa-support.fa-5x
+						.col-xs-9.text-right
+							.huge 13
+							div Support Tickets!
+				a(href='#')
+					.panel-footer
+						span.pull-left View Details
+						span.pull-right
+							i.fa.fa-arrow-circle-right
+						.clearfix
+
+
+

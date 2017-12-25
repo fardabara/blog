@@ -1,6 +1,6 @@
-extends ../panel/layouts
-block content
+extends ./layouts
 
+block content
 	.row
 		.col-md-4.col-md-offset-4
 			.login-center-form
@@ -41,6 +41,14 @@ block jsLayouts
 					password: {
 						required: 'رمز عبور الزامیست'
 					}
+				},
+				highlight: function (element) {
+					$(element).parent().addClass('has-error');
+					
+				},
+				unhighlight: function (element) {
+					console.log($(element));
+					$(element).parent().removeClass('has-error').addClass('has-success')
 				}
 			});
 		});

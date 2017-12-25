@@ -1,0 +1,58 @@
+extends ../layouts
+block title
+	|  پنل مدیریتی کاربران
+block content
+	// Page Heading
+	.row
+		.col-lg-12
+			h1.page-header
+				| کاربران
+				small پنل مدیریتی
+			ol.breadcrumb
+				li.active
+					i.fa.fa-dashboard
+					|  کاربران
+	// Notification
+	//.row
+	//	.col-lg-12
+	//		.alert.alert-info.alert-dismissable
+	//			button.close(type='button', data-dismiss='alert', aria-hidden='true') ×
+	//			i.fa.fa-info-circle
+	//			strong Like SB Admin?
+	//			|  Try out
+	//			a.alert-link(href='http://startbootstrap.com/template-overviews/sb-admin-2') SB Admin 2
+	//			|  for additional features!
+	.row
+		.col-lg-12
+			.table-responsive
+				table.table.table-bordered
+					thead
+						tr
+							th.text-center ردیف
+							th.text-center موبایل
+							th.text-center ایمیل
+							th.text-center سطح دسترسی
+							th.text-center وضعیت
+							th.text-center تاریخ ساخت
+					tbody
+						if(data && data.length)
+							each row ,index in data
+								tr
+									td.text-center #{index+1}
+									td.text-center #{row.mobile}
+									td.text-center #{row.email}
+									td.text-center #{row.userRole.name}
+									td.text-center #{row.userSituation.name}
+									td.text-center #{row.createdAt}
+						else
+							tr
+								td.text-center(colspan="5") هیچ رکوردی یافت نشد
+
+
+
+
+
+
+
+
+

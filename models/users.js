@@ -1,4 +1,5 @@
 /* jshint indent: 2 */
+const moment = require('moment-jalaali');
 
 module.exports = function (sequelize, DataTypes) {
 	const users = sequelize.define('users', {
@@ -42,7 +43,10 @@ module.exports = function (sequelize, DataTypes) {
 		createdAt: {
 			type: DataTypes.DATE,
 			allowNull: true,
-			field: 'created_at'
+			field: 'created_at',
+			get() {
+				return moment(this.getDataValue('createdAt')).format('jYYYY/jM/jD');
+			},
 		},
 		updatedAt: {
 			type: DataTypes.DATE,
@@ -51,14 +55,14 @@ module.exports = function (sequelize, DataTypes) {
 		}
 	}, {
 		tableName: 'users',
-		timestamps: true
+		timestamps: true,
+		classMethods: {
+			associate: function (models) {
+				users.belongsTo(models.userSituations, {foreignKey: 'situationId'});
+				users.belongsTo(models.userRoles, {foreignKey: 'roleId'});
+			}
+		},
+		instanceMethods: {}
 	});
-	users.associate = (models) => {
-		users.blongsTo(models.userRoles, {foreignKey: 'roleId'});
-		users.blongsTo(models.userSituations, {foreignKey: 'situationId'});
-	};
-	users.prototype.someMethod = () => {
-
-	};
 	return users;
 };
