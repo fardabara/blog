@@ -1,0 +1,66 @@
+form#userValidator(action="/panel/users/edit/#{reqParam}" method="POST")
+	.row
+		.col-md-6
+			.form-group
+				label(for='mobile') موبایل
+				input.form-control(type='text' name="mobile" value="#{data.mobile}" required)
+		.col-md-6
+			.form-group
+				label(for='email') ایمیل:
+				input.form-control(type='email' name="email" value="#{data.email}" required)
+	.row
+		.col-md-6
+			.form-group
+				label(for='roleId') نقش کاربر:
+				select.form-control(name="roleId" required)
+					option(value="") انتخاب کنید
+					each row, index in userRoles
+						if(row.id === data.roleId)
+							option(value="#{row.id}" selected) #{row.name}
+						else
+							option(value="#{row.id}") #{row.name}
+	hr
+	.row
+		.col-md-6
+			.form-group
+				button.btn.btn-default.btn-block() انصراف
+		.col-md-6
+			.form-group
+				button.btn.btn-success.btn-block(type='submit')  ذخیره تغییرات
+script.
+	$(function () {
+		$('#userValidator').validate({
+			roles: {
+				mobile: {
+					required: true
+				},
+				email: {
+					required: true,
+					email: true
+				},
+				roleId: {
+					required: true
+				}
+			},
+			messages: {
+				mobile: {
+					required: 'شماره موبایل الزامیست'
+				},
+				email: {
+					required: 'ایمیل الزامیست',
+					email: 'ایمیل نامعتبر است'
+				},
+				roleId: {
+					required: 'نقش کاربر الزامیست',
+				}
+			},
+			highlight: function (element) {
+				$(element).parent().addClass('has-error');
+
+			},
+			unhighlight: function (element) {
+				console.log($(element));
+				$(element).parent().removeClass('has-error').addClass('has-success')
+			}
+		});
+	})

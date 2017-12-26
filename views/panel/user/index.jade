@@ -58,6 +58,8 @@ block content
 										data-value="#{row.situationId === constants.user.situation.accepted ? '1' : '0' }"
 										data-id="#{row.id}" )
 
+										button.btn.btn-link.fa.fa-pencil.has_tooltip(onclick="editUser(#{row.id})" title="ویرایش")
+
 
 						else
 							tr
@@ -132,7 +134,21 @@ block jsLayouts
 				$.alert('خطا در سرور ...');
 			})
 		}
+		function editUser(id) {
+			$('#myModal').modal();
+			$('.modal-title').html('ویرایش کاربر')
+			$.ajax({
+				type: 'GET',
+				url: '/panel/users/edit/' + id
+			}).done(function (data) {
+				var modalBody = $('.modal-body')
+				modalBody.html('<div class="row"><div class="col-md-1 col-md-offset-5"><img src="/images/ajax-loader.gif" alt=""></div></div>');
+				modalBody.html(data);
 
+			}).fail(function () {
+				$.alert('خطا در سرور ...');
+			})
+		}
 
 
 

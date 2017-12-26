@@ -18,6 +18,7 @@ module.exports = function (app) {
 	const userModule = require('../controllers/panel/user');
 	app.use(namespace + 'users/change_situation/:id', userModule.changeSituation);
 	// app.use(namespace + 'users/ajax_list', userModule.ajaxList);
+	app.use(namespace + 'users/edit/:id', userModule.edit);
 	app.use(namespace + 'users/create', userModule.create);
 	app.use(namespace + 'users/index', userModule.index);
 

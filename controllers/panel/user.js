@@ -8,7 +8,7 @@ exports.index = (req, res) => {
 		}, {
 			model: lib.dbConnection.userRoles
 		}],
-		order: [['createdAt','DESC']]
+		order: [['createdAt', 'DESC']]
 	}).then(function (users) {
 		res.render(namespace + 'index', {
 			data: users,
@@ -33,6 +33,31 @@ exports.create = (req, res) => {
 		let body = JSON.parse(JSON.stringify(req.body));
 		body.situationId = lib.constants.user.situation.accepted;
 		lib.dbConnection.users.create(body).then(function () {
+			res.redirect('/panel/users/index');
+		}).catch(function (err) {
+			console.log(err);
+		});
+	}
+};
+/******** S E P A R A T O R*********/
+exports.edit = (req, res) => {
+	if (req.method === 'GET') {
+		lib.dbConnection.userRoles.findAll().then(function (userRoles) {
+			lib.dbConnection.users.find({where: {id: req.params.id}}).then(function (user) {
+				res.render(namespace + 'edit', {
+					userRoles: userRoles,
+					data: user,
+					reqParam: req.params.id
+				});
+			}).catch(function (err) {
+				console.log(err);
+			});
+		}).catch(function (err) {
+			console.log(err);
+		});
+	} else if (req.method === 'POST') {
+		let body = JSON.parse(JSON.stringify(req.body));
+		lib.dbConnection.users.update(body, {where: {id: req.params.id}}).then(function () {
 			res.redirect('/panel/users/index');
 		}).catch(function (err) {
 			console.log(err);
