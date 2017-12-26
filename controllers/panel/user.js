@@ -7,10 +7,13 @@ exports.index = (req, res) => {
 			model: lib.dbConnection.userSituations
 		}, {
 			model: lib.dbConnection.userRoles
-		}]
+		}],
+		order: [['createdAt','DESC']]
 	}).then(function (users) {
 		res.render(namespace + 'index', {
-			data: users
+			data: users,
+			constants: lib.constants,
+			userChange: req.flash('userChange')
 		});
 	}).catch(function (error) {
 		console.log("an error happen", error);
@@ -36,3 +39,24 @@ exports.create = (req, res) => {
 		});
 	}
 };
+/******** S E P A R A T O R*********/
+exports.changeSituation = (req, res) => {
+	const body = JSON.parse(JSON.stringify(req.body));
+	lib.dbConnection.users.update(body, {where: {id: req.params.id}}).then(function () {
+		req.flash('userChange', 'وضعیت کاربر با موفقیت تغییر یافت');
+		res.json({Result: true});
+	}).catch(function (err) {
+		console.log(err);
+	});
+};
+/******** S E P A R A T O R*********/
+// exports.ajaxList = (req, res) => {
+// 	console.log(req.query);
+// 	console.log(req.query.search.value);
+//
+// 	lib.dbConnection.users.findAll().then(function (users) {
+// 		res.send(users);
+// 	}).catch(function (err) {
+// 		console.log(err);
+// 	});
+// };

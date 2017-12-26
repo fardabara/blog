@@ -45,7 +45,9 @@ module.exports = function (sequelize, DataTypes) {
 			allowNull: true,
 			field: 'created_at',
 			get() {
-				return moment(this.getDataValue('createdAt')).format('jYYYY/jM/jD HH:mm');
+				const getTime = moment(this.getDataValue('createdAt')).format('jYYYY/jM/jD');
+				const date = moment(this.getDataValue('createdAt')).format('HH:mm');
+				return getTime +' ساعت ' + date;
 			},
 		},
 		updatedAt: {
@@ -62,9 +64,7 @@ module.exports = function (sequelize, DataTypes) {
 				users.belongsTo(models.userRoles, {foreignKey: 'roleId'});
 			}
 		},
-		instanceMethods: {
-
-		}
+		instanceMethods: {}
 	});
 	return users;
 };

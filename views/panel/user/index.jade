@@ -12,16 +12,15 @@ block content
 				li.active
 					i.fa.fa-dashboard
 					|  کاربران
-	// Notification
-	//.row
-	//	.col-lg-12
-	//		.alert.alert-info.alert-dismissable
-	//			button.close(type='button', data-dismiss='alert', aria-hidden='true') ×
-	//			i.fa.fa-info-circle
-	//			strong Like SB Admin?
-	//			|  Try out
-	//			a.alert-link(href='http://startbootstrap.com/template-overviews/sb-admin-2') SB Admin 2
-	//			|  for additional features!
+	//Notification
+	//if(userChange.length )
+	//	.row
+	//		.col-lg-12
+	//			.alert.alert-info.alert-dismissable
+	//				button.close(type='button', data-dismiss='alert', aria-hidden='true') ×
+	//				i.fa.fa-info-circle
+	//				strong #{userChange.message}
+
 	.row
 		.col-md-4.col-xs-12.pull.col-sm-6.pull-left
 			.form-group
@@ -30,7 +29,7 @@ block content
 	.row
 		.col-lg-12
 			.table-responsive
-				table.table.table-bordered
+				table#myTable.table.table-bordered.table-condensed.table-striped.table-hover
 					thead
 						tr
 							th.text-center ردیف
@@ -39,16 +38,27 @@ block content
 							th.text-center سطح دسترسی
 							th.text-center وضعیت
 							th.text-center تاریخ ساخت
+							th.text-center عملیات
 					tbody
 						if(data && data.length)
 							each row ,index in data
 								tr
-									td.text-center #{index+1}
+									td.text-center #{index + 1}
 									td.text-center #{row.mobile}
 									td.text-center #{row.email}
 									td.text-center #{row.userRole.name}
 									td.text-center #{row.userSituation.name}
-									td.text-center(style="direction:ltr;") #{row.createdAt}
+									td.text-center #{row.createdAt}
+									td.text-center
+										button.btn-link.has_tooltip.fa(
+										href="javascript:;"
+										class="#{row.situationId === constants.user.situation.accepted ? 'fa-times' : 'fa-check' }"
+										onclick="modifySituation(this,#{row.id})"
+										title="#{row.situationId === constants.user.situation.accepted ? 'غیرفعال سازی' : 'فعال سازی' }"
+										data-value="#{row.situationId === constants.user.situation.accepted ? '1' : '0' }"
+										data-id="#{row.id}" )
+
+
 						else
 							tr
 								td.text-center(colspan="5") هیچ رکوردی یافت نشد
@@ -57,7 +67,11 @@ block content
 block jsLayouts
 	script.
 		$(function () {
-
+			$('#myTable').DataTable({
+				//"processing": true,
+				//"serverSide": true,
+				//"ajax": "/panel/users/ajax_list"
+			});
 		});
 		function createUser() {
 			$('#myModal').modal();
@@ -66,11 +80,54 @@ block jsLayouts
 				type: "GET",
 				url: "/panel/users/create"
 			}).done(function (data) {
-				$('.modal-body').html('<div><img src="/images/ajax-loader.gif" alt=""></div>');
-				setTimeout(function () {
+				var modalBody = $('.modal-body')
+				modalBody.html('<div class="row"><div class="col-md-1 col-md-offset-5"><img src="/images/ajax-loader.gif" alt=""></div></div>');
+				modalBody.html(data);
 
-				},2000)
-				$('.modal-body').html(data);
+			}).fail(function () {
+				$.alert('خطا در سرور ...');
+			})
+		}
+		function modifySituation(element, id) {
+			var dataValue = $(element).data('value');
+			console.log(dataValue);
+			if (dataValue === 0) {
+				$(element).removeClass('fa-check').addClass('fa-times')
+				$(element).data('value', 1)
+				$(element).attr('title', 'غیر فعال سازی')
+				$(element).parent().attr('title', 'غیر فعال سازی')
+				$(element).parent().parent().find('td:nth-child(5)').html('تایید شده');
+				enable($(element).data('id'))
+			} else if (dataValue === 1) {
+				$(element).removeClass('has_tooltip')
+				$(element).removeClass('fa-times').addClass('fa-check')
+				$(element).data('value', 0)
+				$(element).attr('title', 'فعال سازی')
+				$(element).parent().parent().find('td:nth-child(5)').html('غیرفعال');
+				disable($(element).data('id'))
+			} else {
+				$.alert('خطا در سرور ...')
+			}
+		}
+
+		function enable(id) {
+			$.ajax({
+				type: 'POST',
+				url: '/panel/users/change_situation/' + id,
+				data: {situationId: !{constants.user.situation.accepted}}
+			}).done(function (data) {
+
+			}).fail(function () {
+				$.alert('خطا در سرور ...');
+			})
+		}
+		function disable(id) {
+			$.ajax({
+				type: 'POST',
+				url: '/panel/users/change_situation/' + id,
+				data: {situationId: !{constants.user.situation.disabled}}
+			}).done(function (data) {
+
 			}).fail(function () {
 				$.alert('خطا در سرور ...');
 			})

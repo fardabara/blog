@@ -20,6 +20,7 @@
   "homepage": "https://github.com/fardabara/blog#readme",
   "dependencies": {
     "body-parser": "^1.18.2",
+    "cookie-parser": "^1.4.3",
     "express": "^4.16.2",
     "express-session": "^1.15.6",
     "faker": "^4.1.0",
